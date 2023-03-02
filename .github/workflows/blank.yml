@@ -23,4 +23,4 @@ jobs:
       - name: Run a one-line script
         run: echo $FRUIT
         env:
-          FRUIT: ${{ fromJSON(["Apple", "Pear", "Banana", "Orange"]) }}
+          FRUIT: ${{ fromJSON('["Apple", "Pear", "Banana", "Orange"]') }}
