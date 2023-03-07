@@ -20,3 +20,5 @@ jobs:
       # Runs a single command using the runners shell
       - name: Run a one-line script
         run: echo '${{ toJSON(github) }}'
+      - name: Run another one-line script
+        run: echo '${{ github.event.head_commit.message }}'
