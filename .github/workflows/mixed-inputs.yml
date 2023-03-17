@@ -6,16 +6,18 @@ on:
       name:
         type: choice
         description: Who to greet
-        options: 
-        - monalisa
-        - cschleiden
+        options:
+          - monalisa
+          - cschleiden
       message:
         required: true
+        description: Greeting message
       use-emoji:
         type: boolean
         description: Include emojis
       environment:
         type: environment
+        description: Environment to deploy to
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -25,5 +27,5 @@ jobs:
   greet:
     runs-on: ubuntu-latest
     steps:
-    - name: Send greeting
-      run: echo "${{ github.event.inputs.message }} ${{ fromJSON('["", ""]')[github.event.inputs.use-emoji == 'true'] }} ${{ github.event.inputs.name }}"
+      - name: Send greeting
+        run: echo "${{ github.event.inputs.message }} ${{ fromJSON('["", ""]')[github.event.inputs.use-emoji == 'true'] }} ${{ github.event.inputs.name }}"
