@@ -17,6 +17,10 @@ on:
       environment:
         type: environment
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   greet:
     runs-on: ubuntu-latest
