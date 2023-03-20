@@ -4,7 +4,9 @@
 	"description": "",
 	"type": "module",
 	"scripts": {
-		"start": "ts-node src/index.ts"
+		"start": "ts-node src/index.ts",
+		"tsc": "tsc --noEmit",
+		"lint": "eslint src"
 	},
 	"keywords": [],
 	"author": "",
