@@ -3,9 +3,12 @@ name: Cache Dependencies
 description: "Caches dependencies for the project"
 
 outputs:
-    cache-hit:
-        description: "True if the cache was hit, false otherwise"
+    node-cache-hit:
+        description: "True if the node cache was hit, false otherwise"
         value: ${{ steps.node-cache.outputs.cache-hit }}
+    build-cache-hit:
+        description: "True if the cache was hit, false otherwise"
+        value: ${{ steps.build-cache.outputs.cache-hit }}
 
 runs:
     using: composite
@@ -22,3 +25,9 @@ runs:
                   node_modules
                   other/node_modules
               key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock', '**/other/yarn.lock') }}
+        - name: Cache build
+          id: build-cache
+          uses: actions/cache@v3
+          with:
+              path: other/dist
+              key: ${{ runner.os }}-build-${{ hashFiles('**/other/dist') }}

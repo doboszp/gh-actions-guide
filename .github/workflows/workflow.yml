@@ -36,15 +36,17 @@ jobs:
         steps:
             - name: Checkout
               uses: actions/checkout@v3
-            - name: Setup Node
-              uses: actions/setup-node@v3
-              with:
-                  node-version: "18.12.1"
             - name: Cache dependencies
-              id: node-cache
+              id: cache
               uses: ./.github/actions/cache
             - name: Install dependencies
-              if: steps.node-cache.outputs.cache-hit != 'true'
-              run: yarn && cd other && yarn
+              if: steps.cache.outputs.node-cache-hit != 'true'
+              run: yarn
             - name: Run Script
-              run: yarn start && cd other && yarn start
+              run: yarn start
+            - name: Install dependencies for App
+              if: steps.cache.outputs.node-cache-hit != 'true'
+              run: cd other && yarn
+            - name: Build App
+              if: steps.cache.outputs.build-cache-hit != 'true'
+              run: cd other && yarn build
