@@ -49,4 +49,4 @@ jobs:
               if: steps.cache.outputs.cache-hit != 'true'
               run: yarn && cd other && yarn
             - name: Run Script
-              run: yarn start
+              run: yarn start && cd other && yarn start
