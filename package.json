@@ -6,7 +6,8 @@
 	"scripts": {
 		"start": "ts-node src/index.ts",
 		"tsc": "tsc --noEmit",
-		"lint": "eslint src"
+		"lint": "eslint src",
+		"update": "ncu -u"
 	},
 	"keywords": [],
 	"author": "",
@@ -20,6 +21,7 @@
 		"typescript": "^5.0.2"
 	},
 	"dependencies": {
-		"@ngneat/falso": "^6.4.0"
+		"@ngneat/falso": "^6.4.0",
+		"npm-check-updates": "^16.7.13"
 	}
 }
