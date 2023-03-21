@@ -17,10 +17,13 @@ jobs:
             - name: Checkout
               uses: actions/checkout@v3
             - name: Setup Node
+              id: cache
               uses: actions/setup-node@v3
               with:
                   cache: "yarn"
                   cache-dependency-path: yarn.lock
+            - name: Print output of cache step
+              run: echo ${{ steps.cache.outputs }}
             - name: Install dependencies
               run: yarn
             - name: Typescript check
