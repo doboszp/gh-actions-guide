@@ -10,6 +10,9 @@ concurrency:
     group: ${{ github.workflow }}-${{ github.ref }}
     cancel-in-progress: true
 
+env:
+    PATHS: ("node_modules", "other/node_modules")
+
 jobs:
     install:
         runs-on: ubuntu-latest
@@ -20,41 +23,43 @@ jobs:
               uses: actions/setup-node@v3
               with:
                   node-version: "18.12.1"
-            - name: Cache dependencies
-              id: cache
-              uses: actions/cache@v3
-              with:
-                  path: |
-                      node_modules
-                      other/node_modules
-                  key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock', '**/other/yarn.lock') }}
-            - name: Install dependencies
-              if: steps.cache.outputs.cache-hit != 'true'
-              run: yarn && cd other && yarn
-            - name: Typescript check
-              run: yarn tsc
-            - name: Linting
-              run: yarn lint
-    build:
-        needs: install
-        runs-on: ubuntu-latest
-        steps:
-            - name: Checkout
-              uses: actions/checkout@v3
-            - name: Setup Node
-              uses: actions/setup-node@v3
-              with:
-                  node-version: "18.12.1"
-            - name: Cache dependencies
-              id: cache
-              uses: actions/cache@v3
-              with:
-                  path: |
-                      node_modules
-                      other/node_modules
-                  key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock', '**/other/yarn.lock') }}
-            - name: Install dependencies
-              if: steps.cache.outputs.cache-hit != 'true'
-              run: yarn && cd other && yarn
-            - name: Run Script
-              run: yarn start && cd other && yarn start
+            - name: "Comma separate of pathes from env"
+              run: echo "${{ env.PATHS }} | xargs | sed -e 's/ /, /g'
+    #         - name: Cache dependencies
+    #           id: cache
+    #           uses: actions/cache@v3
+    #           with:
+    #               path: |
+    #                   node_modules
+    #                   other/node_modules
+    #               key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock', '**/other/yarn.lock') }}
+    #         - name: Install dependencies
+    #           if: steps.cache.outputs.cache-hit != 'true'
+    #           run: yarn && cd other && yarn
+    #         - name: Typescript check
+    #           run: yarn tsc
+    #         - name: Linting
+    #           run: yarn lint
+    # build:
+    #     needs: install
+    #     runs-on: ubuntu-latest
+    #     steps:
+    #         - name: Checkout
+    #           uses: actions/checkout@v3
+    #         - name: Setup Node
+    #           uses: actions/setup-node@v3
+    #           with:
+    #               node-version: "18.12.1"
+    #         - name: Cache dependencies
+    #           id: cache
+    #           uses: actions/cache@v3
+    #           with:
+    #               path: |
+    #                   node_modules
+    #                   other/node_modules
+    #               key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock', '**/other/yarn.lock') }}
+    #         - name: Install dependencies
+    #           if: steps.cache.outputs.cache-hit != 'true'
+    #           run: yarn && cd other && yarn
+    #         - name: Run Script
+    #           run: yarn start && cd other && yarn start
