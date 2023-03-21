@@ -11,7 +11,9 @@ concurrency:
     cancel-in-progress: true
 
 env:
-    PATHS: node_modules, other/node_modules
+    PATHS: |
+        node_modules
+        other/node_modules
 
 jobs:
     install:
