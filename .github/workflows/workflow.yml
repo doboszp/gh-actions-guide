@@ -44,7 +44,7 @@ jobs:
               id: node-cache
               uses: ./.github/actions/cache
             - name: Install dependencies
-              if: steps.cache.outputs.cache-hit != 'true'
+              if: steps.node-cache.outputs.cache-hit != 'true'
               run: yarn && cd other && yarn
             - name: Run Script
               run: yarn start && cd other && yarn start
