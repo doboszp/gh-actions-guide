@@ -11,7 +11,7 @@ concurrency:
     cancel-in-progress: true
 
 env:
-    PATHS: ("node_modules", "other/node_modules")
+    PATHS: node_modules, other/node_modules
 
 jobs:
     install:
@@ -24,7 +24,7 @@ jobs:
               with:
                   node-version: "18.12.1"
             - name: "Comma separate of pathes from env"
-              run: echo "${{ env.PATHS }} | xargs | sed -e 's/ /, /g'
+              run: echo ${{ env.PATHS }} | xargs | sed -e 's/ /, /g'
     #         - name: Cache dependencies
     #           id: cache
     #           uses: actions/cache@v3
