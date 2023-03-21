@@ -24,6 +24,8 @@ jobs:
                       node_modules
                       other/node_modules
                   key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock', '**/other/yarn.lock') }}
+            - name: Node version
+              run: node -v
             - name: Install dependencies
               if: steps.cache.outputs.cache-hit != 'true'
               run: yarn && cd other && yarn
