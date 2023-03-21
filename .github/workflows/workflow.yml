@@ -17,16 +17,19 @@ jobs:
             - name: Checkout
               uses: actions/checkout@v3
             - name: Setup Node
-              id: node-cache
               uses: actions/setup-node@v3
               with:
                   node-version: "18.12.1"
-                  cache: "yarn"
-                  cache-dependency-path: |
-                      yarn.lock
-                      other/yarn.lock
+            - name: Cache dependencies
+              id: cache
+              uses: actions/cache@v3
+              with:
+                  path: |
+                      node_modules
+                      other/node_modules
+                  key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock', '**/other/yarn.lock') }}
             - name: Install dependencies
-              if: steps.node-cache.outputs.cache-hit != 'true'
+              if: steps.cache.outputs.cache-hit != 'true'
               run: yarn && cd other && yarn
             - name: Typescript check
               run: yarn tsc
@@ -39,16 +42,19 @@ jobs:
             - name: Checkout
               uses: actions/checkout@v3
             - name: Setup Node
-              id: node-cache
               uses: actions/setup-node@v3
               with:
                   node-version: "18.12.1"
-                  cache: "yarn"
-                  cache-dependency-path: |
-                      yarn.lock
-                      other/yarn.lock
+            - name: Cache dependencies
+              id: cache
+              uses: actions/cache@v3
+              with:
+                  path: |
+                      node_modules
+                      other/node_modules
+                  key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock', '**/other/yarn.lock') }}
             - name: Install dependencies
-              if: steps.node-cache.outputs.cache-hit != 'true'
+              if: steps.cache.outputs.cache-hit != 'true'
               run: yarn && cd other && yarn
             - name: Run Script
               run: yarn start && cd other && yarn start
