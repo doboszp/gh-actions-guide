@@ -12,8 +12,8 @@ concurrency:
 
 env:
     PATHS: |
-        node_modules
-        other/node_modules
+        "node_modules"
+        "other/node_modules"
 
 jobs:
     install:
