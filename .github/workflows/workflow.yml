@@ -19,10 +19,18 @@ jobs:
             - name: Setup Node
               uses: actions/setup-node@v3
               with:
-                  cache: "yarn"
-                  cache-dependency-path: yarn.lock
+                  node-version: "18.12.1"
+            - name: Cache dependencies
+              id: cache
+              uses: actions/cache@v3
+              with:
+                  path: |
+                      node_modules
+                      other/node_modules
+                  key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock', '**/other/yarn.lock') }}
             - name: Install dependencies
-              run: yarn
+              if: steps.cache.outputs.cache-hit != 'true'
+              run: yarn && cd other && yarn
             - name: Typescript check
               run: yarn tsc
             - name: Linting
@@ -36,9 +44,17 @@ jobs:
             - name: Setup Node
               uses: actions/setup-node@v3
               with:
-                  cache: "yarn"
-                  cache-dependency-path: yarn.lock
+                  node-version: "18.12.1"
+            - name: Cache dependencies
+              id: cache
+              uses: actions/cache@v3
+              with:
+                  path: |
+                      node_modules
+                      other/node_modules
+                  key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock', '**/other/yarn.lock') }}
             - name: Install dependencies
-              run: yarn
+              if: steps.cache.outputs.cache-hit != 'true'
+              run: yarn && cd other && yarn
             - name: Run Script
-              run: yarn start
+              run: yarn start && cd other && yarn start

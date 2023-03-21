@@ -1,13 +1,12 @@
 {
-	"name": "gh-actions-guide",
+	"name": "other",
 	"version": "1.0.0",
 	"description": "",
 	"type": "module",
 	"scripts": {
-		"start": "ts-node src/index.ts",
+		"start": "ts-node index.ts",
 		"tsc": "tsc --noEmit",
-		"lint": "eslint src",
-		"update": "ncu -u"
+		"lint": "eslint src"
 	},
 	"keywords": [],
 	"author": "",
@@ -21,7 +20,6 @@
 		"typescript": "^5.0.2"
 	},
 	"dependencies": {
-		"@ngneat/falso": "^6.4.0",
-		"npm-check-updates": "^16.7.13"
+		"@ngneat/falso": "^6.4.0"
 	}
 }
