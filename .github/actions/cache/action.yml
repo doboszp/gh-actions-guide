@@ -33,4 +33,4 @@ runs:
                   other/public
                   other/src
                   other/package.json
-              key: ${{ runner.os }}-build-${{ hashFiles('**/other/public', '**/other/src', '**/other/package.json') }}
+              key: ${{ runner.os }}-build-${{ hashFiles('**/other/public/*', '**/other/src/*', '**/other/package.json') }}
