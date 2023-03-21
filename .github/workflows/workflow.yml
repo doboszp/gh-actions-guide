@@ -22,9 +22,8 @@ jobs:
               with:
                   cache: "yarn"
                   cache-dependency-path: yarn.lock
-            - name: Print output of cache step
-              run: echo ${{ toJSON(steps.cache.outputs) }}
             - name: Install dependencies
+              if: steps.cache.outputs.cache-hit != 'true'
               run: yarn
             - name: Typescript check
               run: yarn tsc
@@ -42,6 +41,7 @@ jobs:
                   cache: "yarn"
                   cache-dependency-path: yarn.lock
             - name: Install dependencies
+              if: steps.cache.outputs.cache-hit != 'true'
               run: yarn
             - name: Run Script
               run: yarn start
