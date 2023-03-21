@@ -29,5 +29,8 @@ runs:
           id: build-cache
           uses: actions/cache@v3
           with:
-              path: other/dist
-              key: ${{ runner.os }}-build-${{ hashFiles('**/other/dist') }}
+              path: |
+                  other/public
+                  other/src
+                  other/package.json
+              key: ${{ runner.os }}-build-${{ hashFiles('**/other/public', '**/other/src', '**/other/package.json') }}
