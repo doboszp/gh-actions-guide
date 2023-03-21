@@ -26,7 +26,7 @@ jobs:
               with:
                   node-version: "18.12.1"
             - name: "Comma separate of pathes from env"
-              run: echo ${{ env.PATHS }} | xargs | sed -e 's/ /, /g'
+              run: fromJson( ${{ env.PATHS }} )
     #         - name: Cache dependencies
     #           id: cache
     #           uses: actions/cache@v3
