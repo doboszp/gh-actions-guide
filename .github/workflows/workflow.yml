@@ -11,7 +11,11 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  install:
+  deploy:
+    strategy:
+      fail-fast: true
+      matrix:
+        task: [install, build]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -23,20 +27,11 @@ jobs:
         if: steps.cache.outputs.cache-hit != 'true'
         run: yarn && cd other && yarn
       - name: Typescript check
+        if: matrix.task == 'install'
         run: yarn tsc
       - name: Linting
+        if: matrix.task == 'install'
         run: yarn lint
-  build:
-    needs: install
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Cache dependencies
-        id: cache
-        uses: ./.github/actions/cache
-      - name: Install dependencies
-        if: steps.cache.outputs.cache-hit != 'true'
-        run: yarn && cd other && yarn
       - name: Run Script
-        run: yarn start && cd other && yarn start
+        if: matrix.task == 'build'
+        run: yarn start
