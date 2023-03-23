@@ -3,18 +3,18 @@ name: "Cache"
 description: "Cache files and directories"
 
 outputs:
-  cache-hit:
-    description: "True if there was a cache hit, false otherwise"
-    value: ${{ steps.cache.outputs.cache-hit }}
+    cache-hit:
+        description: "True if there was a cache hit, false otherwise"
+        value: ${{ steps.cache.outputs.cache-hit }}
 
 runs:
-  using: "composite"
-  steps:
-    - name: Cache dependencies
-      id: cache
-      uses: actions/cache@v3
-      with:
-        path: |
-          node_modules
-          other/node_modules
-        key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock', 'other/yarn.lock') }}
+    using: "composite"
+    steps:
+        - name: Cache dependencies
+          id: cache
+          uses: actions/cache@v3
+          with:
+              path: |
+                  node_modules
+                  other/node_modules
+              key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock', 'other/yarn.lock') }}
