@@ -18,3 +18,6 @@ runs:
           node_modules
           other/node_modules
         key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock', 'other/yarn.lock') }}
+    - name: print paths
+      run: echo ${{ toJSON(['yarn.lock', 'other/yarn.lock'])}}
+      shell: bash
