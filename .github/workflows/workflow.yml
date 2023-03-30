@@ -25,7 +25,6 @@ jobs:
                       yarn.lock
                       other/yarn.lock
             - name: Install dependencies
-              if: steps.node-cache.outputs.cache-hit != 'true'
               run: yarn && cd other && yarn
             - name: Typescript check
               run: yarn tsc
