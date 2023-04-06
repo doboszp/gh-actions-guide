@@ -13,13 +13,15 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v35
         with:
-          fetch-depth: 2
-
-      - name: Get Number of Files Changed in src
+          since_last_remote_commit: true
+  
+      - name: List all changed files
         run: |
-          git diff --name-only HEAD^ HEAD
-          echo "NUMBER_OF_FILES_CHANGED=$(git diff --name-only HEAD^ HEAD | grep -c src)" >> $GITHUB_ENV
-
-      - name: Print Number of Files Changed
-        run: echo $NUMBER_OF_FILES_CHANGED
+          for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
+            echo "$file was changed"
+          done
