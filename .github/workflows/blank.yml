@@ -14,11 +14,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
         with:
-          fetch-depth: 1
+          fetch-depth: 2
 
       - name: Get Number of Files Changed in src
         run: |
-          git diff --name-only HEAD^ HEAD 
+          git diff --name-only HEAD^ HEAD | grep -c src
           echo "NUMBER_OF_FILES_CHANGED=$(git diff --name-only HEAD^ HEAD | grep -c src)" >> $GITHUB_ENV
 
       - name: Print Number of Files Changed
