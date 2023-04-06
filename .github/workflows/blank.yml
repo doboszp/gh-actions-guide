@@ -22,7 +22,4 @@ jobs:
           since_last_remote_commit: true
   
       - name: List all changed files
-        run: |
-          for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
-            echo "$file was changed"
-          done
+        run: ${{ steps.changed-files.outputs.all_changed_files }}
