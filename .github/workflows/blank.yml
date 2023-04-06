@@ -18,8 +18,8 @@ jobs:
 
       - name: Get Number of Files Changed in src
         run: |
-          git diff --name-only HEAD^ HEAD | grep -c src
-          echo "NUMBER_OF_FILES_CHANGED=$(git diff --name-only HEAD^ HEAD | grep -c src)" >> $GITHUB_ENV
+          git diff --name-only HEAD^ HEAD
+          echo "NUMBER_OF_FILES_CHANGED=$(git diff --name-only | grep -c src)" >> $GITHUB_ENV
 
       - name: Print Number of Files Changed
         run: echo $NUMBER_OF_FILES_CHANGED
