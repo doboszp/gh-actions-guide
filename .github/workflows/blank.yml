@@ -22,4 +22,4 @@ jobs:
           since_last_remote_commit: true
   
       - name: List all changed files
-        run: ${{ steps.changed-files.outputs.all_changed_files }}
+        run: ${{ steps.changed-files.outputs }}
