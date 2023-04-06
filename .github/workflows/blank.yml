@@ -20,6 +20,6 @@ jobs:
         with:
           files: src/**
           since_last_remote_commit: true
-  
+
       - name: List all changed files
-        run: ${{ toJSON(steps.changed-files.outputs) }}
+        run: echo ${{ toJSON(steps.changed-files.outputs) }}
