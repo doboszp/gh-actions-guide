@@ -14,12 +14,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Get changed files
-        id: changed-files
-        uses: tj-actions/changed-files@v35
-        with:
-          files: src/**
-          since_last_remote_commit: true
-
-      - name: List all changed files
-        run: echo ${{ toJSON(steps.changed-files.outputs) }}
+      - name: Ensure PR_NUMBER is set
+        run: echo '{"deployEnv":"pr${PR_NUMBER}"}'
+        env:
+          PR_NUMBER: ${{ github.event.number }}
